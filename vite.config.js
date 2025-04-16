@@ -14,5 +14,9 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     },
-  },
+  },server: {
+    allowedHosts: ['b4c49w.natappfree.cc'], // ← 添加这行
+    host: '0.0.0.0', // ← 可选，让服务监听所有 IP，便于外部访问
+    port: 5173        // ← 可选，指定端口
+  }
 })

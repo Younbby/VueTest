@@ -152,21 +152,7 @@ const loadChatHistory = () => {
 const getDefaultChats = () => {
   return [
     { 
-      title: '对话 1', 
-      pinned: false, 
-      showOptions: false,
-      messages: [],
-      conversationId: null
-    },
-    { 
-      title: '对话 2', 
-      pinned: false, 
-      showOptions: false,
-      messages: [],
-      conversationId: null
-    },
-    { 
-      title: '对话 3', 
+      title: '新对话', 
       pinned: false, 
       showOptions: false,
       messages: [],
@@ -302,16 +288,14 @@ const avatarConfig = {
     content: '/avatar/bot.png'
   },
   system: {
-    type: 'svg',
-    content: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-11h2v2h-2v-2zm0 4h2v4h-2v-4z"></path>
-    </svg>`
+    type: 'image',
+    content: '/avatar/bot.png'
   }
 };
 
 // 聊天配置
 const chatConfig = {
-  welcomeMessage: '您好！我是研考问答智能助手研小芽，专为报考武汉理工大学研究生（硕士与博士）的考生提供咨询服务。您可以向我提问武汉理工大学研究生招生相关问题，包括报考资格、招生简章、学费标准、奖助政策等内容等。\n特别说明：若遇个性化问题或政策更新，欢迎您直接致电研招办官方热线027-87651413。期待金秋时节与您在理工大校园相逢！',
+  welcomeMessage: '您好！我是研考问答智能助手研小芽，专为报考武汉理工大学研究生（硕士与博士）的考生提供咨询服务。您可以向我提问武汉理工大学研究生招生相关问题，包括报考资格、招生简章、学费标准、奖助政策等内容等。\n特别说明：若遇个性化问题或政策更新，欢迎您直接致电研招办官方热线027-87651413。\n期待金秋时节与您在理工大校园相逢！',
   placeholder: '在此输入您的问题...',
   loadingText: '正在思考...'
 };
