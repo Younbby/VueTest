@@ -97,9 +97,32 @@ const emit = defineEmits(['update:chatHistory']);
 
 // --- Dify API 配置 ---
 // !! 警告: 请勿在前端硬编码 API Key。应通过后端代理或安全的环境变量配置。
-const DIFY_API_URL = 'YOUR_DIFY_API_ENDPOINT'; // 替换为你的 Dify API 地址
-const DIFY_API_KEY = 'YOUR_DIFY_API_KEY';   // 替换为你的 Dify API Key
-// ----------------------
+const DIFY_CHAT_URL = 'https://api.dify.ai/v1/chat-messages'; // 替换为你的 Dify API 地址
+const DIFY_API_KEY = 'app-nGcvdBUzl82wEzy3vvlMblfp';   // 替换为你的 Dify API Key
+
+// 生成设备唯一标识
+const generateDeviceId = () => {
+  const userAgent = navigator.userAgent;
+  const screenInfo = `${screen.width}x${screen.height}`;
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const language = navigator.language;
+  
+  // 组合设备信息
+  const deviceInfo = `${userAgent}|${screenInfo}|${timeZone}|${language}`;
+  
+  // 使用简单的哈希函数生成ID
+  let hash = 0;
+  for (let i = 0; i < deviceInfo.length; i++) {
+    const char = deviceInfo.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  
+  return `web-user-${Math.abs(hash).toString(36)}`;
+};
+
+// 获取设备ID
+const deviceId = generateDeviceId();
 
 const newMessage = ref('');
 const isLoading = ref(false);
@@ -176,7 +199,7 @@ const sendMessage = async () => {
 
   try {
     // --- 调用 Dify API ---
-    const response = await fetch(DIFY_API_URL, {
+    const response = await fetch(DIFY_CHAT_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -185,7 +208,7 @@ const sendMessage = async () => {
       body: JSON.stringify({
         inputs: {},
         query: text,
-        user: `web-user-${Date.now()}`,
+        user: deviceId,  // 使用设备ID作为用户标识
         conversation_id: currentChat.value.conversationId || undefined,
         response_mode: 'streaming'
       }),
